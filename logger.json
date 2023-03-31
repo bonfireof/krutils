@@ -1,0 +1,24 @@
+{
+    "__LOG_LEVEL__" : "ALL/DB/APP/INFO/ERR is possible",
+    "LOG_LEVEL" : "DB",
+    "LOG_CONSOLE_YN" : "Y",
+    "LOG_FILE_YN" : "N",
+    "LOG_DIR_PATH" : "./logs",
+    "LOG_FILE_NAME" : "mylog.log"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
