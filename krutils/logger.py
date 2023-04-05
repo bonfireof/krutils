@@ -28,6 +28,9 @@ __LOGGER_CONFIG_FILE_NAME = 'logger.json'
 #    }
 
 
+
+
+
 ######################
 # 로깅 레벨 설정
 ######################
@@ -77,12 +80,10 @@ DEBUG_FILE_FILE_NAME  = datetime.now().strftime("%H%M%S") + '.log';
 
 
 
-
-
 #######################################
 # Logger 설정 파일을 사용하는 경우 내용을 읽어서 적용한다
 try:
-    from kealutils import utils
+    from krutils import utils
     config_file_path = utils.find_first_file_to_root(__LOGGER_CONFIG_FILE_NAME)
 
     if utils.is_empty(config_file_path) != True:
