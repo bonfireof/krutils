@@ -1,6 +1,12 @@
 '''
-    LOG UTIL
-        다른 프로젝트 파일과 연관이 없도록 독립적으로 구성
+LOG처리
+
+	내가 필요한것은 로그 문자열 포멧팅 밖에 없다.
+	나중에 logging을 래핑하자
+
+
+
+
 '''
 
 import os
@@ -80,47 +86,61 @@ DEBUG_FILE_FILE_NAME  = datetime.now().strftime("%H%M%S") + '.log';
 
 
 
+
+
+
+
+
 #######################################
-# Logger 설정 파일을 사용하는 경우 내용을 읽어서 적용한다
-try:
-    from krutils import utils
-    config_file_path = utils.find_first_file_to_root(__LOGGER_CONFIG_FILE_NAME)
+# CLASS 초기화
+#   - CALLER 정보를 입력하는 경우 설정 파일을 탐색하여 발견되면 적용한다
+class init:
+    caller_file_name = ''
 
-    if utils.is_empty(config_file_path) != True:
+    def __init__(self, caller_file_name):
+        self.caller_file_name = caller_file_name;
 
-        import json
-        with open(config_file_path) as cf:
-            logger_config = json.load(cf)
 
-        # print (logger_config)
 
-        cfv = logger_config['LOG_LEVEL']
-        if (utils.is_empty(cfv) != True):
-            CURR_DEBUG_LEVEL = get_log_level_index(cfv)
+# try:
+#     from krutils import utils
+#     config_file_path = utils.find_first_file_to_root(__LOGGER_CONFIG_FILE_NAME)
 
-        cfv = logger_config['LOG_CONSOLE_YN']
-        if (utils.is_empty(cfv) != True):
-            DEBUG_CONSOLE_PRINT_YN = cfv
+#     if utils.is_empty(config_file_path) != True:
 
-        cfv = logger_config['LOG_FILE_YN']
-        if (utils.is_empty(cfv) != True):
-            DEBUG_FILE_PRINT_YN = cfv
+#         import json
+#         with open(config_file_path) as cf:
+#             logger_config = json.load(cf)
 
-        cfv = logger_config['LOG_DIR_PATH']
-        if (utils.is_empty(cfv) != True):
-            DEBUG_FILE_DIR_PATH = cfv
+#         # print (logger_config)
 
-        cfv = logger_config['LOG_FILE_NAME']
-        if (utils.is_empty(cfv) != True):
-            DEBUG_FILE_FILE_NAME = cfv
+#         cfv = logger_config['LOG_LEVEL']
+#         if (utils.is_empty(cfv) != True):
+#             CURR_DEBUG_LEVEL = get_log_level_index(cfv)
 
-        # print ('CURR_DEBUG_LEVEL : ' + str(CURR_DEBUG_LEVEL))
-        # print ('DEBUG_CONSOLE_PRINT_YN : ' + DEBUG_CONSOLE_PRINT_YN)
-        # print ('DEBUG_FILE_PRINT_YN : ' + DEBUG_FILE_PRINT_YN)
-        # print ('DEBUG_FILE_PATH : ' + os.path.abspath(os.path.join(DEBUG_FILE_DIR_PATH, DEBUG_FILE_FILE_NAME)))
+#         cfv = logger_config['LOG_CONSOLE_YN']
+#         if (utils.is_empty(cfv) != True):
+#             DEBUG_CONSOLE_PRINT_YN = cfv
 
-except Exception as e:
-    print('Failed to read config file. e[' + str(e) + ']')
+#         cfv = logger_config['LOG_FILE_YN']
+#         if (utils.is_empty(cfv) != True):
+#             DEBUG_FILE_PRINT_YN = cfv
+
+#         cfv = logger_config['LOG_DIR_PATH']
+#         if (utils.is_empty(cfv) != True):
+#             DEBUG_FILE_DIR_PATH = cfv
+
+#         cfv = logger_config['LOG_FILE_NAME']
+#         if (utils.is_empty(cfv) != True):
+#             DEBUG_FILE_FILE_NAME = cfv
+
+#         # print ('CURR_DEBUG_LEVEL : ' + str(CURR_DEBUG_LEVEL))
+#         # print ('DEBUG_CONSOLE_PRINT_YN : ' + DEBUG_CONSOLE_PRINT_YN)
+#         # print ('DEBUG_FILE_PRINT_YN : ' + DEBUG_FILE_PRINT_YN)
+#         # print ('DEBUG_FILE_PATH : ' + os.path.abspath(os.path.join(DEBUG_FILE_DIR_PATH, DEBUG_FILE_FILE_NAME)))
+
+# except Exception as e:
+#     print('Failed to read config file. e[' + str(e) + ']')
 
 
 
