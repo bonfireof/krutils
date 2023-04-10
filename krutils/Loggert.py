@@ -89,19 +89,6 @@ DEBUG_FILE_FILE_NAME  = datetime.now().strftime("%H%M%S") + '.log';
 
 
 
-
-
-#######################################
-# CLASS 초기화
-#   - CALLER 정보를 입력하는 경우 설정 파일을 탐색하여 발견되면 적용한다
-class init:
-    caller_file_name = ''
-
-    def __init__(self, caller_file_name):
-        self.caller_file_name = caller_file_name;
-
-
-
 # try:
 #     from krutils import utils
 #     config_file_path = utils.find_first_file_to_root(__LOGGER_CONFIG_FILE_NAME)
@@ -148,18 +135,18 @@ class init:
 ##      시스템 정보
 ##########################################
 # 호출자 파일 명
-def __caller_file_name() -> str:
+def _caller_file_name(self) -> str:
     return os.path.basename(inspect.stack()[__CALLER_IDX][1])
 
 # 호출자 라인번호
-def __caller_file_line() -> int:
+def _caller_file_line(self) -> int:
     return inspect.stack()[__CALLER_IDX][2]
 
 
 ##########################################
 ##      log
 ##########################################
-def __gen_substitutor_dummy_string(cnt: int) -> str:
+def _gen_substitutor_dummy_string(self, cnt: int) -> str:
     '''Dummy 치환자 문자열 생성'''
     ret = ""
 
@@ -169,7 +156,7 @@ def __gen_substitutor_dummy_string(cnt: int) -> str:
     return ret
 
 
-def __gen_log_header(debug_level) -> str:
+def _gen_log_header(self, debug_level) -> str:
     '''[HH24MISS.FFF][CALLER_NAME:LINE5byte]'''
 
     HEADER_LENGTH = 40
@@ -190,12 +177,11 @@ def __gen_log_header(debug_level) -> str:
     header = header + "[" + __caller_file_name() + ":" + str(__caller_file_line()).zfill(5) + "]"       # 호출자
     header = header.ljust(HEADER_LENGTH, " ")                                                           # 길이 맞추기
 
-
     return header
 
 
 
-def __substitute_string(input: str, *args) -> str:
+def _substitute_string(self, input: str, *args) -> str:
 
     if input == None:
         return None
@@ -206,7 +192,7 @@ def __substitute_string(input: str, *args) -> str:
 
         idx = 0
         try:
-            idx = input.index(__LOG_SUBSTITUTOR)
+            idx = input.index(self.config._LOG_SUBSTITUTOR)
         except Exception as e:
             break;
 
@@ -216,7 +202,7 @@ def __substitute_string(input: str, *args) -> str:
 
         # print (__LOG_SUBSTITUTOR)
         # print (input, input.replace(__LOG_SUBSTITUTOR, str(arg), 1))
-        input = input.replace(__LOG_SUBSTITUTOR, str(arg), 1)
+        input = input.replace(self.config._LOG_SUBSTITUTOR, str(arg), 1)
 
     return input
 
@@ -225,7 +211,7 @@ def __substitute_string(input: str, *args) -> str:
 
 
 
-def __print_log(debug_level, template="", *args):
+def _print_log(self, debug_level, template="", *args):
     '''
     로그처리
     header + debug_strings...
@@ -246,7 +232,7 @@ def __print_log(debug_level, template="", *args):
     # 처리
 
     # 문자열 치환
-    log_body = __substitute_string(template_str, *args)
+    log_body = _substitute_string(template_str, *args)
 
     # 남은 치환자 제거
     log_body = log_body.replace(__LOG_SUBSTITUTOR, "")
@@ -254,40 +240,40 @@ def __print_log(debug_level, template="", *args):
 
     #################
     # CONSOLE PRINT
-    if DEBUG_CONSOLE_PRINT_YN == "Y":
+    if self.config.DEBUG_CONSOLE_PRINT_YN == "Y":
         print (__gen_log_header(debug_level) + " " + log_body)
 
 
     #################
     # FILE PRINT
-    if DEBUG_FILE_PRINT_YN == "Y":
+    if self.config.DEBUG_FILE_PRINT_YN == "Y":
         print("파일프린트 시작한다[{}]".format(DEBUG_FILE_PRINT_PATH))
         # writelog (__gen_log_header(debug_level) + " " + log_body)
         pass
 
 
-def syslog(template="", *args):
-    __print_log(DEBUG_LEVEL_ALL, template, *args)
+def syslog(self, template="", *args):
+    _print_log(DEBUG_LEVEL_ALL, template, *args)
 
 
 
-def dblog(template="", *args):
-    __print_log(DEBUG_LEVEL_DB, template, *args)
+def dblog(self, template="", *args):
+    _print_log(DEBUG_LEVEL_DB, template, *args)
 
 
 
-def debug(template="", *args):
-    __print_log(DEBUG_LEVEL_APP, template, *args)
+def debug(self, template="", *args):
+    _print_log(DEBUG_LEVEL_APP, template, *args)
 
 
 
-def info(template="", *args):
-    __print_log(DEBUG_LEVEL_INFO, template, *args)
+def info(self, template="", *args):
+    _print_log(DEBUG_LEVEL_INFO, template, *args)
 
 
 
-def error(template="", *args):
-    __print_log(DEBUG_LEVEL_ERR, template, *args)
+def error(self, template="", *args):
+    _print_log(DEBUG_LEVEL_ERR, template, *args)
 
 
 
