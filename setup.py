@@ -6,8 +6,8 @@ setuptools.setup(
     author="bonfireof",
     author_email="bonfireof@gmail.com",
     description="Some utils for me.",
-    project_urls={
-    },
+    url="https://github.com/bonfireof/krutils",
+    project_urls={},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
