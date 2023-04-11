@@ -1116,10 +1116,12 @@ class logger(_logging):
 
     '''
 
-    def __init__(self, caller_path: str):
+    def __init__(self, ____file__: str):
 
         # logger에 필요한 변수와 기능이 담겨있는 super 클래스를 초기화 한다.
         super().__init__()
+
+        caller_path = ____file__
 
         # 인자로 받은 호출자 경로로 부터 root까지 탐색하며 config 파일을 찾는다.
         # 존재시 설정을 덮어 씌운다
