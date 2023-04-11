@@ -1,24 +1,9 @@
 {
-    "__LOG_LEVEL__" : "ALL/DB/APP/INFO/ERR is possible",
-    "LOG_LEVEL" : "ALL",
+    "__KEYWORDS__" : "LOG_LEVEL/LOG_CONSOLE_YN/LOG_FILE_YN/LOG_DIR_PATH/LOG_FILE_NAME",
+    "__LOG_LEVEL__" : "SYSTEM/DB/DEBUG/INFO/ERROR",
+    "LOG_LEVEL" : "SYSTEM",
     "LOG_CONSOLE_YN" : "Y",
-    "LOG_FILE_YN" : "N",
-    "LOG_DIR_PATH" : "./logs",
-    "LOG_FILE_NAME" : "mylog.log"
+    "LOG_FILE_YN" : "N"
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
