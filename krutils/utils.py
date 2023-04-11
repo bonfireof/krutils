@@ -665,6 +665,7 @@ def get_katis_config_file_path() -> str:
     # while True:
     for ii in range(5):
         # print("[{0}] {1}".format(ii, curr_dir))
+        import CONST
 
         if (os.path.isfile(curr_dir + "/" + CONST.KATIS_CONFIG_FILE_NAME) == True):
             katis_config_file_path = os.path.join(curr_dir, CONST.KATIS_CONFIG_FILE_NAME)

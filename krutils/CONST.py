@@ -62,3 +62,26 @@ MAX_TIMESTAMP = "99991231235959999999"
 MAX_TIMESTAMP_TM = "235959999999"
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+KATIS_CONFIG_FILE_NAME='katis.json'
+
+
+

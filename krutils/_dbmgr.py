@@ -2,8 +2,9 @@ import re
 import os
 import pymysql
 from pymysql import Connection
-from common import logger
-from common import utils
+import utils
+
+
 
 
 # SQL PARAM 형식
@@ -26,7 +27,7 @@ def excuteSQL():
     '''
     예를 들어 입력 SQL이 아래와 같다고 하면...
 
-    SELECT * 
+    SELECT *
     FROM TBTMP
     where k1 = #{k1}
     ;
@@ -34,10 +35,10 @@ def excuteSQL():
 
     # CONNECTION
     juso_db = pymysql.connect(
-        user='root', 
-        passwd='{설정한 비밀번호}', 
-        host='127.0.0.1', 
-        db='juso-db', 
+        user='root',
+        passwd='{설정한 비밀번호}',
+        host='127.0.0.1',
+        db='juso-db',
         charset='utf8'
     )
 
@@ -62,7 +63,7 @@ def excuteSQL():
 
     ##########################
     # INSERT
-    sql = '''INSERT INTO `busan-jibun` (관리번호, 일련번호, 시도명, 시군구명) 
+    sql = '''INSERT INTO `busan-jibun` (관리번호, 일련번호, 시도명, 시군구명)
     VALUES ('1234567891234567891234567', '1', '서울특별시', '강남구');'''
 
     cursor.execute(sql)
@@ -82,7 +83,7 @@ def _get_connection() -> pymysql.Connection:
     '''
     DB Connection
     '''
-    
+
     # katis 메인 환경설정 읽기
     katis_env = utils.get_katis_env()
     logger.debug("katis_env[%%]", katis_env)
@@ -165,7 +166,7 @@ def _parse_sql(sql: str, *args, **kwargs):
             new_val = new_kwargs[new_key]
         except Exception as e:
             new_val = None
-        
+
         new_args.append(new_val)
     # logger.dblog("new_args[%%]", new_args)
 
