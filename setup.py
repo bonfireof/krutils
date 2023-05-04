@@ -2,12 +2,15 @@ import setuptools
 
 setuptools.setup(
     name="krutils",
-    version="0.20230411.1644",
+    version="0.20230504.1540",
     author="bonfireof",
     author_email="bonfireof@gmail.com",
     description="Some utils for me.",
-    url="https://github.com/bonfireof/krutils",
-    project_urls={},
+    project_urls={
+        "Bug Tracker": "",
+        "Documentation": "",
+        "Source Code": "https://github.com/bonfireof/krutils",
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
