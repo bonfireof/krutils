@@ -6,10 +6,10 @@ print (ap)
 
 sys.path.append(ap)
 
-# from krutils import logger
-# l = logger(__file__)
-# print (l)
-# l.debug('[%%]', 123)
+from krutils import logger
+l = logger(__file__)
+print (l)
+l.debug('[%%]', 123)
 
 
 from krutils import utils

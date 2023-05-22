@@ -522,61 +522,6 @@ def curr_quarter() -> int:
 
 
 
-##########################################
-##      FILE, DIRECTORIES
-##########################################
-
-def get_file_path_fr(file_name: str) -> str:
-    '''
-    config_file_path = get_file_path_ftr('config.json')
-    > get file path following through root
-    > file_name을 최상위 디렉토리까지 올라가며 찾는다.
-    > 첫번째 확인된 경로를 리턴한다.
-    '''
-    if is_empty(file_name):
-        raise Exception('찾고자하는 파일명을 입력해 주세요')
-
-    import os
-
-    curr_dir = os.path.dirname(__file__)
-    # print("curr_dir[{0}]".format(curr_dir))
-
-    file_path = ""
-    for ii in range(100):
-        # print("[{0}] {1}".format(ii, curr_dir))
-
-        if (os.path.isfile(curr_dir + "/" + file_name) == True):
-            file_path = os.path.join(curr_dir, file_name)
-            # print("찾았다!", file_path)
-            break
-        else:
-            # print("상위로 찾아 올라간다[{0}]->[{1}]".format(curr_dir, os.path.abspath(os.path.join(curr_dir, '..'))))
-            # root까지 확인된 경우 : 더이상 찾을 수 없을 때
-            if (curr_dir == os.path.abspath(os.path.join(curr_dir, '..'))):
-                # print("못찾았다!")
-                #raise Exception(file_name + " 파일을 찾을 수 없습니다.")
-                return None
-            else:
-                curr_dir = os.path.abspath(os.path.join(curr_dir, '..'))
-
-    # print("find_first_file_to_root() -> [{0}]".format(file_path))
-    return file_path
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -586,9 +531,6 @@ def get_file_path_fr(file_name: str) -> str:
 ##########################################
 ##      JSON
 ##########################################
-
-
-
 def get_json_as_dic(file_path=None) -> dict:
     '''
        "xxx.json"  file을 읽어 dict형태로 반환한다.
@@ -639,54 +581,21 @@ def checkInternetSocket(host="8.8.8.8", port=53, timeout=3):
         # print(ex)
         return False
 
+# # 이건 삭제하자
+# def get_katis_env() -> dict:
 
-def get_katis_env() -> dict:
+#     # 실행환경 설정 파일 읽기
+#     katis_file_path = get_katis_config_file_path()
 
-    # 실행환경 설정 파일 읽기
-    katis_file_path = get_katis_config_file_path()
+#     if (len(katis_file_path) == 0):
+#         return False
 
-    if (len(katis_file_path) == 0):
-        return False
+#     import json
+#     with open(katis_file_path) as kf:
+#         katis_env = json.load(kf)
 
-    import json
-    with open(katis_file_path) as kf:
-        katis_env = json.load(kf)
-
-    # print(type(katis_env))
-    return katis_env
-
-
-def get_katis_config_file_path() -> str:
-
-    import os
-
-    curr_dir = os.path.dirname(__file__)
-    # print("curr_dir[{0}]".format(curr_dir))
-
-    katis_config_file_path = ""
-    # while True:
-    for ii in range(5):
-        # print("[{0}] {1}".format(ii, curr_dir))
-        import CONST
-
-        if (os.path.isfile(curr_dir + "/" + CONST.KATIS_CONFIG_FILE_NAME) == True):
-            katis_config_file_path = os.path.join(curr_dir, CONST.KATIS_CONFIG_FILE_NAME)
-            # print("찾았다!", katis_config_file_path)
-            break
-        else:
-            # print("상위로 찾아 올라간다[{0}]->[{1}]".format(curr_dir, os.path.abspath(os.path.join(curr_dir, '..'))))
-            # root까지 확인된 경우 : 더이상 찾을 수 없을 때
-            if (curr_dir == os.path.abspath(os.path.join(curr_dir, '..'))):
-                # print("못찾았다!")
-                raise Exception(CONST.KATIS_CONFIG_FILE_NAME + " 파일을 찾을 수 없습니다.")
-                break
-            else:
-                curr_dir = os.path.abspath(os.path.join(curr_dir, '..'))
-
-    # print("get_katis_config_file_path() -> [{0}]".format(katis_config_file_path))
-    return katis_config_file_path
-
-
+#     # print(type(katis_env))
+#     return katis_env
 
 
 
@@ -780,21 +689,12 @@ def get_katis_config_file_path() -> str:
 ##      LOGGING
 ##########################################
 def logger(____file__):
-    '''
-    from krutils import utils
-    logger = utils.logger(__file__)
-
-    or
-
-    from krutils import logger
-    logger = logger(__file__)
-    '''
+    '''krutils.logger() 참고 '''
 
     caller_path = ____file__
 
     if is_empty(caller_path) == True:
         caller_path = __file__
-
 
     from krutils import logger
     return logger(caller_path)
