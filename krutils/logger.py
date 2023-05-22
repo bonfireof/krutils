@@ -1,118 +1,3 @@
-'''
-LOG처리
-    내가 필요한것은 로그 문자열 포멧팅 밖에 없다.
-    나중에 logging을 래핑하자
-
-'''
-
-
-
-
-# 로그 설정값을 관리
-class _logger_config:
-
-    def __init__(self):
-        ######################
-        # 기본 변수
-
-        # 호출자 인덱스
-        self._CALLER_IDX        = 4;
-
-        # 문자열 치환자
-        self._LOG_SUBSTITUTOR    = "%%";
-
-        # 시스템 로그를 포함하여 출력
-        self.DEBUG_LEVEL_ALL    = _logger_util().get_log_level_index("SYSTEM");
-        # # DB접근 로그를 포함하여 출력
-        self.DEBUG_LEVEL_DB     = _logger_util().get_log_level_index("DB");
-        # # 프로그램 로그를 포함하여 출력
-        self.DEBUG_LEVEL_DEBUG  = _logger_util().get_log_level_index("DEBUG");
-        # # 중요 정보 발생시 출력
-        self.DEBUG_LEVEL_INFO   = _logger_util().get_log_level_index("INFO");
-        # # 오류 발생시 출력
-        self.DEBUG_LEVEL_ERROR  = _logger_util().get_log_level_index("ERROR");
-
-
-        ######################
-        # 설정
-
-        # 파일명 지정
-        self.CONFIG_FILE_PATH = './'
-        self.CONFIG_FILE_NAME = 'logger.json'
-
-        ######################
-        # 로거 동작 설정
-        ######################
-        # 현재 로그레벨 (최초 생성시 기본로그레벨로 세팅)
-        self.CURR_DEBUG_LEVEL       = _logger_util().get_log_level_index("INFO");
-
-        # 디버깅 출력 방법 : 콘솔 출력 여부
-        self.DEBUG_CONSOLE_PRINT_YN = "Y";
-
-        # 디버깅 출력 방법 : 파일 출력 여부
-        self.DEBUG_FILE_PRINT_YN    = "N";
-
-
-        # 디버깅 출력 방법 : 파일 출력 경로
-        from datetime import datetime
-        self.DEBUG_FILE_DIR_PATH  = "./logs";
-        self.DEBUG_FILE_FILE_NAME  = datetime.now().strftime("%H%M%S") + '.log';
-
-
-
-
-class _logger_util:
-
-    def _find_config_file_path(self, start_path: str) -> str:
-
-        import os
-
-        curr_dir = os.path.dirname(start_path)
-        # print("start_path[{0}]".format(curr_dir))
-
-        _cfg = _logger_config()
-
-        config_file_path = ""
-        # while True:
-        for ii in range(5):
-            # print("seeking..[{0}]th : {1}".format(ii, curr_dir))
-
-            if (os.path.isfile(curr_dir + "/" + _cfg.CONFIG_FILE_NAME) == True):
-                config_file_path = os.path.join(curr_dir, _cfg.CONFIG_FILE_NAME)
-                # print("찾았다!", config_file_path)
-                break
-            else:
-                # print("상위로 찾아 올라간다[{0}]->[{1}]".format(curr_dir, os.path.abspath(os.path.join(curr_dir, '..'))))
-                # root까지 확인된 경우 : 더이상 찾을 수 없을 때
-                if (curr_dir == os.path.abspath(os.path.join(curr_dir, '..'))):
-                    # print("못찾았다!")
-                    config_file_path = ''
-                    # raise Exception(_cfg.CONFIG_FILE_NAME + " 파일을 찾을 수 없습니다.")
-                    break
-                else:
-                    curr_dir = os.path.abspath(os.path.join(curr_dir, '..'))
-
-        # print("get_config_file_path() -> [{0}]".format(config_file_path))
-        return config_file_path
-
-
-
-    # 로깅 레벨 설정
-    def get_log_level_index(self, level: str) -> int:
-        if level == None:
-            return 4
-        elif level == "ERROR":
-            return 4
-        elif level == "INFO":
-            return 3
-        elif level == "DEBUG":
-            return 2
-        elif level == "DB":
-            return 1
-        elif level == "SYSTEM":
-            return 0
-        return 4
-
 
 
 # 로깅 클래스의 기능을 담아놓는다.
@@ -159,24 +44,21 @@ class _logging:
 
         from datetime import datetime
 
-        HEADER_LENGTH = 40
-
         header = ""
         if (debug_level == self.config.DEBUG_LEVEL_ALL):
             header = header + "[SYS]"
         elif (debug_level == self.config.DEBUG_LEVEL_DB):
             header = header + "[SQL]"
-        elif (debug_level == self.config.DEBUG_LEVEL_APP):
+        elif (debug_level == self.config.DEBUG_LEVEL_DEBUG):
             header = header + "[DBG]"
         elif (debug_level == self.config.DEBUG_LEVEL_INFO):
             header = header + "[INF]"
         elif (debug_level == self.config.DEBUG_LEVEL_ERROR):
             header = header + "[ERR]"
 
-        header = header + " " + "[" + datetime.now().strftime("%H%M%S.%f")[:-3] + "]"                               # 일시
-        header = header + " " + "[" + self._caller_file_name() + ":" + str(self._caller_file_line()).zfill(5) + "]"       # 호출자
-        header = header.ljust(HEADER_LENGTH, " ")                                                                   # 길이 맞추기
-
+        header = header + " " + "[" + datetime.now().strftime("%H%M%S.%f")[:-3] + "]"                                   # 일시
+        header = header + " " + "[" + self._caller_file_name() + ":" + str(self._caller_file_line()).zfill(5) + "]"     # 호출자
+        # header = header.ljust(40, " ")                                                                                  # 길이 맞추기
 
         return header
 
@@ -285,6 +167,8 @@ class logger(_logging):
 
         SAMPLE> 'logger.json'
         {
+            "__KEYWORDS__" : "LOG_LEVEL/LOG_CONSOLE_YN/LOG_FILE_YN/LOG_DIR_PATH/LOG_FILE_NAME",
+            "__LOG_LEVEL__" : "SYSTEM/DB/DEBUG/INFO/ERROR",
             "LOG_LEVEL" : "INFO",
             "LOG_CONSOLE_YN" : "Y",
             "LOG_FILE_YN" : "N",
@@ -301,26 +185,23 @@ class logger(_logging):
 
     '''
 
-    def __init__(self, caller_path: str):
+    def __init__(self, ____file__: str):
 
         # logger에 필요한 변수와 기능이 담겨있는 super 클래스를 초기화 한다.
         super().__init__()
 
+        caller_path = ____file__
+
         # 인자로 받은 호출자 경로로 부터 root까지 탐색하며 config 파일을 찾는다.
         # 존재시 설정을 덮어 씌운다
-        self.config.CONFIG_FILE_PATH = _logger_util()._find_config_file_path(caller_path)
+        cfp = _logger_util().find_config_file_path(caller_path)
 
-        # realizer!!! is_empty로 변경, paser 메서드 작성.
-        if (len(self.config.CONFIG_FILE_PATH) != 0):
-            import json
-            with open(self.config.CONFIG_FILE_PATH) as _cf:
-                _cfc = json.load(_cf)
+        if (is_empty(cfp) != True):
+            parsed_config = _logger_util().parse_config_file(cfp)
 
-            # print(_cfc)
-
-            # print("__LOG_LEVEL__[" + _cfc["__LOG_LEVEL__"] + "]")
-            # print(_cfc["__LOG_LEVEL_"])       # 이렇게 하면 오류난다.
-
+            if (parsed_config != None):
+                self.config = parsed_config
+                self.config.CONFIG_FILE_PATH = cfp
 
 
     def syslog(self, template="", *args):
@@ -334,7 +215,7 @@ class logger(_logging):
 
 
     def debug(self, template="", *args):
-        self._print_log(self.config.DEBUG_LEVEL_APP, template, *args)
+        self._print_log(self.config.DEBUG_LEVEL_DEBUG, template, *args)
 
 
 
@@ -345,5 +226,22 @@ class logger(_logging):
 
     def error(self, template="", *args):
         self._print_log(self.config.DEBUG_LEVEL_ERROR, template, *args)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

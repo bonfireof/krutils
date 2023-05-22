@@ -2,13 +2,13 @@ import setuptools
 
 setuptools.setup(
     name="krutils",
-    version="0.20230504.1540",
+    version="0.20230504.1600",
     author="bonfireof",
     author_email="bonfireof@gmail.com",
     description="Some utils for me.",
     project_urls={
-        "Bug Tracker": "",
-        "Documentation": "",
+        "Bug Tracker": "https://github.com/bonfireof/krutils",
+        "Documentation": "https://github.com/bonfireof/krutils",
         "Source Code": "https://github.com/bonfireof/krutils",
     },
     classifiers=[
