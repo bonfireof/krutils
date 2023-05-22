@@ -53,3 +53,72 @@ def get_file_path_fr(file_name: str) -> str:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##########################################
+##      DATA 형식으로 변환
+##########################################
+def get_json_file_path_fr(file_name: str) -> dict():
+
+    if file_name == None or len(file_name.strip()) == 0:
+        raise Exception('찾고자하는 파일명을 입력해 주세요')
+
+    data_file_path = get_file_path_fr(file_name)
+
+    if (data_file_path == None):
+        raise Exception('지정한 파일을 찾을 수 없습니다 [{0}]'.format(file_name))
+
+    import json
+    with open(account) as af:
+        json_data = json.load(af)
+
+    return json_data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
