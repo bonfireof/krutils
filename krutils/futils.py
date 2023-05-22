@@ -53,13 +53,3 @@ def get_file_path_fr(file_name: str) -> str:
 
 
 
-def test():
-    # import os
-    # import inspect
-    # caller_files = inspect.stack()
-
-    # for caller_file in caller_files:
-    #     print (caller_file[1])
-
-    _get_file_path_next_me()
-
