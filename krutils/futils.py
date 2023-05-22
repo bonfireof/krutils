@@ -82,8 +82,8 @@ def get_json_file_path_fr(file_name: str) -> dict():
         raise Exception('지정한 파일을 찾을 수 없습니다 [{0}]'.format(file_name))
 
     import json
-    with open(account) as af:
-        json_data = json.load(af)
+    with open(data_file_path) as df:
+        json_data = json.load(df)
 
     return json_data
 
