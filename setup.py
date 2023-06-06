@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="krutils",
-    version="0.20230522.1625",
+    version="0.20230606.1807",
     author="bonfireof",
     author_email="bonfireof@gmail.com",
     description="Some utils for me.",
@@ -22,6 +22,7 @@ setuptools.setup(
     packages=["krutils"],
     python_requires=">=3.0",
     install_requires=[
-        "PyMySQL>=1.0.3"
+        "PyMySQL>=1.0.3",
+        'python-telegram-bot'
     ]
 )
