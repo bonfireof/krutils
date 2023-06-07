@@ -1,19 +1,23 @@
 import sys
 import os
 
-ap = os.path.abspath(os.path.dirname(os.path.dirname('./../krutils')))
-print (ap)
+ap = os.path.abspath('./krutils')
+print ('imported:' + ap)
 
 sys.path.append(ap)
 
-from krutils import logger
-l = logger(__file__)
-print (l)
+import logger as lgr
+l = lgr.logger(__file__)
+# print (l)
 l.debug('[%%]', 123)
+l.info('[%%]', 1111111111)
 
 
-from krutils import utils
+import utils
 
 kl = utils.logger(__file__)
-kl.debug('[%%]', 'xxxxx')
+kl.info('[%%]', '우훼훼훼')
+
+# kl = utils.logger(__file__)
+# kl.info('[%%]', 'xxxxx')
 
