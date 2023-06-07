@@ -288,7 +288,7 @@ class _logging:
 ######################
 # logger 클래스 메인
 #   1. 설정파일을 찾아 적용한다. 없으면 기본값으로 적용한다.
-class logger(_logging):
+class getlogger(_logging):
     '''
     My favorite log format maker.
     [LEVEL] [TIME] [SOURCE] contents...

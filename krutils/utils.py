@@ -685,27 +685,6 @@ def checkInternetSocket(host="8.8.8.8", port=53, timeout=3):
 
 
 
-##########################################
-##      LOGGING
-##########################################
-def logger(____file__):
-    '''krutils.logger() 참고 '''
-
-    caller_path = ____file__
-
-    if is_empty(caller_path) == True:
-        caller_path = __file__
-
-    from krutils import logger
-    return logger(caller_path)
-
-
-
-
-
-
-
-
 
 
 

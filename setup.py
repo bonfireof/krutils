@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="krutils",
-    version="0.20230607.0116",
+    version="0.20230607.2323",
     author="bonfireof",
     author_email="bonfireof@gmail.com",
     description="Some utils for me.",
