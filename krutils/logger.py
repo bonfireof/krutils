@@ -101,7 +101,11 @@ class _logger_util:
         for ii in range(5):
             # print("seeking..[{0}]th : {1}".format(ii, curr_dir))
 
-            if (os.path.isfile(curr_dir + "/" + CONFIG_FILE_NAME) == True):
+            if (os.path.isfile(CONFIG_FILE_NAME) == True):      # 가상환경에서는 디렉토리정보가 없다!!?
+                config_file_path = CONFIG_FILE_NAME
+                # print("찾았다!", config_file_path)
+                break
+            elif (os.path.isfile(curr_dir + "/" + CONFIG_FILE_NAME) == True):
                 config_file_path = os.path.join(curr_dir, CONFIG_FILE_NAME)
                 # print("찾았다!", config_file_path)
                 break

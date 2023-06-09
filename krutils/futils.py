@@ -34,7 +34,11 @@ def get_file_path_fr(file_name: str) -> str:
     for ii in range(100):
         # print(curr_dir, file_name, "찾는중이다")
 
-        if (os.path.isfile(os.path.join(curr_dir, file_name)) == True):
+        if (os.path.isfile(file_name) == True):      # 가상환경에서는 디렉토리정보가 없다!!?
+            file_path = file_name
+            # print("찾았다!", file_path)
+            break
+        elif (os.path.isfile(os.path.join(curr_dir, file_name)) == True):
             file_path = os.path.join(curr_dir, file_name)
             # print("찾았다!", file_path)
             break
