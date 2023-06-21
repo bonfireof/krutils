@@ -83,7 +83,8 @@ def get_json_file_path_fr(file_name: str) -> dict():
     data_file_path = get_file_path_fr(file_name)
 
     if (data_file_path == None):
-        raise Exception('지정한 파일을 찾을 수 없습니다 [{0}]'.format(file_name))
+        # raise Exception('지정한 파일을 찾을 수 없습니다 [{0}]'.format(file_name))
+        return None
 
     import json
     with open(data_file_path, encoding='UTF8') as df:
