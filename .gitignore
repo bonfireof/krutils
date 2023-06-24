@@ -1,11 +1,14 @@
 ## 파일 무시
-setting.json
-logger.json
-account.json
 todo.md
+
 
 ## 다음과 같은 확장자는 전체 무시
 *.exclude_extention
+*.json
+
+
 
 ## 폴더 무시
 test/
+
+

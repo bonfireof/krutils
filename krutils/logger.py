@@ -89,13 +89,19 @@ class _logger_util:
 
         return v
 
-    def find_config_file_path(self, start_path: str) -> str:
+    def find_config_file_path(self, start_path: str, settings) -> str:
         ''' logger 설정 파일을 찾는다 '''
 
         import os
 
         curr_dir = os.path.dirname(start_path)
         CONFIG_FILE_NAME = 'logger.json'
+
+        if (settings != None and
+            len(settings) > 0   ):
+            CONFIG_FILE_NAME = settings
+
+        # print('find setting file[' + CONFIG_FILE_NAME + '] from [' + curr_dir + ']')
 
         config_file_path = ""
         for ii in range(5):
@@ -144,11 +150,17 @@ class _logger_util:
 
         parsed_config.CONFIG_FILE_PATH = config_file_path
 
-        parsed_config.CURR_DEBUG_LEVEL = self.get_log_level_index(self.nvl_dict(config_json, 'LOG_LEVEL', parsed_config.CURR_DEBUG_LEVEL))
-        parsed_config.DEBUG_CONSOLE_PRINT_YN = self.nvl_dict(config_json, 'LOG_CONSOLE_YN', parsed_config.DEBUG_CONSOLE_PRINT_YN)
-        parsed_config.DEBUG_FILE_PRINT_YN = self.nvl_dict(config_json, 'LOG_FILE_YN', parsed_config.DEBUG_FILE_PRINT_YN)
-        parsed_config.DEBUG_FILE_DIR_PATH = self.nvl_dict(config_json, 'LOG_DIR_PATH', parsed_config.DEBUG_FILE_DIR_PATH)
-        parsed_config.DEBUG_FILE_FILE_NAME = self.nvl_dict(config_json, 'LOG_FILE_NAME', parsed_config.DEBUG_FILE_FILE_NAME)
+        if config_json['LOGGING'] != None:
+            # parsed_config.CURR_DEBUG_LEVEL = self.get_log_level_index(self.nvl_dict(config_json, 'LOG_LEVEL', parsed_config.CURR_DEBUG_LEVEL))
+            # parsed_config.DEBUG_CONSOLE_PRINT_YN = self.nvl_dict(config_json, 'LOG_CONSOLE_YN', parsed_config.DEBUG_CONSOLE_PRINT_YN)
+            # parsed_config.DEBUG_FILE_PRINT_YN = self.nvl_dict(config_json, 'LOG_FILE_YN', parsed_config.DEBUG_FILE_PRINT_YN)
+            # parsed_config.DEBUG_FILE_DIR_PATH = self.nvl_dict(config_json, 'LOG_DIR_PATH', parsed_config.DEBUG_FILE_DIR_PATH)
+            # parsed_config.DEBUG_FILE_FILE_NAME = self.nvl_dict(config_json, 'LOG_FILE_NAME', parsed_config.DEBUG_FILE_FILE_NAME)
+            parsed_config.CURR_DEBUG_LEVEL = self.get_log_level_index(self.nvl_dict(config_json['LOGGING'], 'LOG_LEVEL', parsed_config.CURR_DEBUG_LEVEL))
+            parsed_config.DEBUG_CONSOLE_PRINT_YN = self.nvl_dict(config_json['LOGGING'], 'LOG_CONSOLE_YN', parsed_config.DEBUG_CONSOLE_PRINT_YN)
+            parsed_config.DEBUG_FILE_PRINT_YN = self.nvl_dict(config_json['LOGGING'], 'LOG_FILE_YN', parsed_config.DEBUG_FILE_PRINT_YN)
+            parsed_config.DEBUG_FILE_DIR_PATH = self.nvl_dict(config_json['LOGGING'], 'LOG_DIR_PATH', parsed_config.DEBUG_FILE_DIR_PATH)
+            parsed_config.DEBUG_FILE_FILE_NAME = self.nvl_dict(config_json['LOGGING'], 'LOG_FILE_NAME', parsed_config.DEBUG_FILE_FILE_NAME)
 
         # print(parsed_config.__dict__)
         return parsed_config
@@ -342,7 +354,7 @@ class getlogger(_logging):
 
     '''
 
-    def __init__(self, ____file__: str):
+    def __init__(self, ____file__: str, settings=''):
 
         # logger에 필요한 변수와 기능이 담겨있는 super 클래스를 초기화 한다.
         super().__init__()
@@ -351,7 +363,7 @@ class getlogger(_logging):
 
         # 인자로 받은 호출자 경로로 부터 root까지 탐색하며 config 파일을 찾는다.
         # 존재시 설정을 덮어 씌운다
-        cfp = _logger_util().find_config_file_path(caller_path)
+        cfp = _logger_util().find_config_file_path(caller_path, settings)
 
         if (cfp != None and len(cfp.strip()) > 0):
             parsed_config = _logger_util().parse_config_file(cfp)
