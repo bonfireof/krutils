@@ -139,7 +139,7 @@ class _logger_util:
 
         # 파싱하자
         import json
-        with open(config_file_path) as _cfp:
+        with open(config_file_path, encoding='utf8') as _cfp:
             config_json = json.load(_cfp)
 
         if config_json == None:
@@ -150,7 +150,7 @@ class _logger_util:
 
         parsed_config.CONFIG_FILE_PATH = config_file_path
 
-        if config_json['LOGGING'] != None:
+        if config_json.get('LOGGING') != None:
             # parsed_config.CURR_DEBUG_LEVEL = self.get_log_level_index(self.nvl_dict(config_json, 'LOG_LEVEL', parsed_config.CURR_DEBUG_LEVEL))
             # parsed_config.DEBUG_CONSOLE_PRINT_YN = self.nvl_dict(config_json, 'LOG_CONSOLE_YN', parsed_config.DEBUG_CONSOLE_PRINT_YN)
             # parsed_config.DEBUG_FILE_PRINT_YN = self.nvl_dict(config_json, 'LOG_FILE_YN', parsed_config.DEBUG_FILE_PRINT_YN)
