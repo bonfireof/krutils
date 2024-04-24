@@ -9,6 +9,8 @@ todo.md
 
 
 ## 폴더 무시
+.vscode/
 test/
+__pycache__/
 
 
