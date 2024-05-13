@@ -12,4 +12,13 @@ todo.md
 test/
 __pycache__/
 
+## virtualenv 관련 리소스
+include/
+Lib/
+Scripts/
+pyvenv.cfg
+
+
+
+
 
