@@ -7,7 +7,6 @@ todo.md
 *.json
 
 
-
 ## 폴더 무시
 .vscode/
 test/

@@ -37,6 +37,14 @@ def is_empty(input: str) -> bool():
         raise Exception("NaN")
 
 
+def is_hangul(input: str) -> bool():
+    '''
+    문자열이 한글을 포함하는지 여부를 리턴
+    '''
+    import re
+    korean_pattern = re.compile("[ㄱ-ㅎㅏ-ㅣ가-힣]+")
+    return bool(korean_pattern.search(input))
+
 
 #     /** <b> 문자열비교 </b> */
 #     public static int strcmp(String str1, String str2)
